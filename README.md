@@ -1,5 +1,6 @@
-# CandyBasic
-这是一个开发脚手架:candy:
+# candy-dianping
+:rainbow: :rainbow:仿大众点评项目 :rainbow: :rainbow:
+
 ## 使用
 
 ### 后端
