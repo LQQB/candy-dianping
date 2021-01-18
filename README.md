@@ -10,3 +10,6 @@
 - thymeleaf(模板引擎)
 - hibernate-validator(数据校验)
 
+### 2021-01-19
+-- 新增商家入驻
+
