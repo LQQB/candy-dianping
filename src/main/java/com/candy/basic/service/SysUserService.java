@@ -74,4 +74,8 @@ public class SysUserService {
         return CBBeanUtils.beanToForm(sysUser, SysUserForm.class);
     }
 
+    public Integer countUserNum() {
+        return sysUserMapper.countUserNum();
+    }
+
 }

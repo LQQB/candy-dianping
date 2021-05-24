@@ -69,4 +69,8 @@
         select user_id, create_date, update_date, mobile_no, `password`, nick_name, gender
         from sysuser where mobile_no = #{username} and `password` = #{password}
     </select>
+
+    <select id="countUserNum" resultType="java.lang.Integer">
+        select count(1) from sysuser
+    </select>
 </mapper>

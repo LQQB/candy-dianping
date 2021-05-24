@@ -106,13 +106,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </thead>
                                 <tbody>
                                 <tr th:each="seller:${data.list}">
-                                    <td th:text="${seller.id}"></td>
-                                    <td th:text="${seller.name}"></td>
-                                    <td th:text="${seller.remarkScore}"></td>
-                                    <td th:text="${seller.disabledFlag}"></td>
+                                    <td th:text="${seller.sellerId}"></td>
+                                    <td th:text="${seller.sellerName}"></td>
+                                    <td th:text="${seller.remakerScore}"></td>
+                                    <td th:text="${seller.disable}"></td>
                                     <td>
-                                        <a th:style="(${seller.disabledFlag}==0) ?'display:none'" href="#"  th:id="'up'+${seller.id}"  th:attr="data-id=${seller.id}" class="btn default btn-xs blue">启用</a>
-                                        <a th:style="(${seller.disabledFlag}==1) ?'display:none'" href="#"  th:id="'down'+${seller.id}" th:attr="data-id=${seller.id}" class="btn default btn-xs red">禁用</a>
+                                        <a th:style="(${seller.disable}==1) ?'display:none'" href="#"  th:id="'up'+${seller.sellerId}"  th:attr="data-id=${seller.sellerId}" class="btn default btn-xs blue">启用</a>
+                                        <a th:style="(${seller.disable}==0) ?'display:none'" href="#"  th:id="'down'+${seller.sellerId}" th:attr="data-id=${seller.sellerId}" class="btn default btn-xs red">禁用</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -184,10 +184,10 @@ License: You must have a valid license purchased only from themeforest(the above
         Index.init();
         var baseUrl = "/admin/seller/index?page="
         setUrl(baseUrl);
-        var totalSize = /*[[${data.total}]]*/;
-        var countPerPage = /*[[${data.pageSize}]]*/;
-        var currentPage = /*[[${data.pageNum}]]*/;
-        var allPage = /*[[${data.pages}]]*/;
+        var totalSize = [[${data.total}]];
+        var countPerPage = [[${data.pageSize}]];
+        var currentPage = [[${data.pageNum}]];
+        var allPage = [[${data.pages}]];
         setPage(document.getElementById("page-container"),allPage,currentPage);
         if(allPage <= 1){
             $("#page-container").hide();
@@ -212,15 +212,15 @@ License: You must have a valid license purchased only from themeforest(the above
                     "id": id,
                 },
                 success : function(data){
-                    if(data.status == 'success'){
-                        alert("启用商户成功");
+                    if(data.code == 8){
+                        alert("禁用商户成功");
                         window.location.href = "/admin/seller/index";
                     }else{
-                        alert("启用商户失败，原因为"+data.data.errMsg);
+                        alert("禁用商户失败，原因为"+data.data.msg);
                     }
                 },
                 error : function(data){
-                    alert("启用商户失败，原因为"+data.responseText);
+                    alert("禁用商户失败，原因为"+data.data);
                 }
             });
         });
@@ -241,15 +241,15 @@ License: You must have a valid license purchased only from themeforest(the above
                     "id": id,
                 },
                 success : function(data){
-                    if(data.status == 'success'){
+                    if(data.code == 8){
                         alert("禁用商户成功");
                         window.location.href = "/admin/seller/index";
                     }else{
-                        alert("禁用商户失败，原因为"+data.data.errMsg);
+                        alert("禁用商户失败，原因为"+data.data.msg);
                     }
                 },
                 error : function(data){
-                    alert("禁用商户失败，原因为"+data.responseText);
+                    alert("禁用商户失败，原因为"+data.data);
                 }
             });
         });

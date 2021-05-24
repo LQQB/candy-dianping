@@ -48,4 +48,10 @@ public interface SysUserMapper {
 
 
     SysUser findUsernameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 统计注册人数
+     * @return
+     */
+    Integer countUserNum();
 }

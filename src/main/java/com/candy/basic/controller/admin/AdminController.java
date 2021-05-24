@@ -3,6 +3,7 @@ package com.candy.basic.controller.admin;
 import com.candy.basic.common.AdminPermission;
 import com.candy.basic.common.BusinessException;
 import com.candy.basic.enums.CbMsgEnum;
+import com.candy.basic.service.SysUserService;
 import com.candy.basic.utils.CBSHAUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,9 @@ public class AdminController {
     @Resource
     private HttpServletRequest httpServletRequest;
 
+    @Resource
+    private SysUserService sysUserService;
+
     public final static String CURRENT_SESSION_ADMIN = "current_session_admin";
 
 
@@ -38,6 +42,9 @@ public class AdminController {
     @RequestMapping("/admin/admin/index")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("/admin/admin/index");
+        modelAndView.addObject("userCount", sysUserService.countUserNum());
+        modelAndView.addObject("CONTROLLER_NAME", "admin");
+        modelAndView.addObject("ACTION_NAME", "index");
         return modelAndView;
     }
 
