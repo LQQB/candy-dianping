@@ -20,8 +20,12 @@ public enum CbMsgEnum {
     LOGIN_FAIL(20002,"手机号或密码错误"),
 
     // admin 相关错误
-    ADMIN_SHOULD_LOGIN(30001,"管理员需要先登录");
+    ADMIN_SHOULD_LOGIN(30001,"管理员需要先登录"),
 
+    //品类相关错误
+    CATEGORY_NAME_DUPLICATED(40001,"品类名已存在"),
+
+    ;
     private Integer code;
 
     private String msg;

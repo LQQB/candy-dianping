@@ -3,6 +3,9 @@ package com.candy.basic.controller.admin;
 import com.candy.basic.common.AdminPermission;
 import com.candy.basic.common.BusinessException;
 import com.candy.basic.enums.CbMsgEnum;
+import com.candy.basic.service.CategoryService;
+import com.candy.basic.service.SellerService;
+import com.candy.basic.service.ShopService;
 import com.candy.basic.service.SysUserService;
 import com.candy.basic.utils.CBSHAUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +38,15 @@ public class AdminController {
     @Resource
     private SysUserService sysUserService;
 
+    @Resource
+    private SellerService sellerService;
+
+    @Resource
+    private CategoryService categoryService;
+
+    @Resource
+    private ShopService shopService;
+
     public final static String CURRENT_SESSION_ADMIN = "current_session_admin";
 
 
@@ -43,6 +55,10 @@ public class AdminController {
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("/admin/admin/index");
         modelAndView.addObject("userCount", sysUserService.countUserNum());
+        modelAndView.addObject("sellerCount", sellerService.countSellerNum());
+        modelAndView.addObject("categoryCount", categoryService.countCategoryNum());
+        modelAndView.addObject("shopCount", shopService.countShopNum());
+
         modelAndView.addObject("CONTROLLER_NAME", "admin");
         modelAndView.addObject("ACTION_NAME", "index");
         return modelAndView;

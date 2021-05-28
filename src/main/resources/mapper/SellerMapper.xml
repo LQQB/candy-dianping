@@ -63,4 +63,7 @@
     select seller_id, seller_name, remaker_score, create_date, update_date, `disable`
     from seller order by seller_id asc
   </select>
+    <select id="countSellerNum" resultType="java.lang.Integer">
+          select count(1) from seller
+    </select>
 </mapper>

@@ -54,4 +54,8 @@ public class SellerService {
         sellerMapper.updateByPrimaryKey(sellerModel);
         return sellerModel;
     }
+
+    public Integer countSellerNum() {
+        return sellerMapper.countSellerNum();
+    }
 }

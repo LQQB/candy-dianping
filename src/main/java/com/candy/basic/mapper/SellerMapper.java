@@ -43,4 +43,6 @@ public interface SellerMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Seller record);
+
+    Integer countSellerNum();
 }
