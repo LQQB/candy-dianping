@@ -1,6 +1,7 @@
 package com.candy.basic.service;
 
 import com.candy.basic.common.BusinessException;
+import com.candy.basic.common.CbMessage;
 import com.candy.basic.entity.Shop;
 import com.candy.basic.enums.CbMsgEnum;
 import com.candy.basic.form.CategoryForm;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -90,4 +93,34 @@ public class ShopService {
     public Integer countShopNum() {
         return shopMapper.countShopNum();
     }
+
+    public List<ShopForm> recommend(BigDecimal longitude, BigDecimal latitude) {
+        long now = System.currentTimeMillis();
+        List<Shop> shops = shopMapper.recommend(longitude, latitude);
+        log.info("耗時：{} ms", System.currentTimeMillis() - now);
+        List<ShopForm> shopForms = CBBeanUtils.parseBeansToForms(shops, ShopForm.class);
+        shopForms.forEach(shopForm -> {
+            shopForm.setCategoryForm(categoryService.getId(shopForm.getCategoryId()));
+            shopForm.setSellerForm(CBBeanUtils.beanToForm(sellerService.get(shopForm.getSellerId()), SellerForm.class));
+        });
+        return shopForms;
+    }
+
+    public List<ShopForm> search(BigDecimal longitude,
+                                  BigDecimal latitude, String keyword,Integer orderby,
+                                  Integer categoryId,String tags) {
+        List<Shop> shops = shopMapper.search(longitude,latitude,keyword,orderby,categoryId,tags);
+
+        List<ShopForm> shopForms = CBBeanUtils.parseBeansToForms(shops, ShopForm.class);
+        shopForms.forEach(shopForm -> {
+            shopForm.setCategoryForm(categoryService.getId(shopForm.getCategoryId()));
+            shopForm.setSellerForm(CBBeanUtils.beanToForm(sellerService.get(shopForm.getSellerId()), SellerForm.class));
+        });
+        return shopForms;
+    }
+
+    public List<Map<String, Object>> searchGroupByTags(String keyword, Integer categoryId, String tags) {
+        return shopMapper.searchGroupByTags(keyword,categoryId,tags);
+    }
+
 }

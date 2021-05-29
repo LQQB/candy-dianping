@@ -40,6 +40,7 @@ public class ShopController {
     @RequestMapping("/admin/shop/index")
     public ModelAndView index(PageQuery pageQuery) {
         PageHelper.startPage(pageQuery.getPage(),pageQuery.getSize());
+
         List<ShopForm> shopForms = shopService.selectAll();
         PageInfo<ShopForm> shopFormPageInfo = new PageInfo<>(shopForms);
         ModelAndView modelAndView = new ModelAndView("/admin/shop/index.html");
